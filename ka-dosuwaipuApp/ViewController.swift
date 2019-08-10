@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     //選択されたカードの数
     var selectedCardCount: Int = 0
     //ユーザーリスト
-    let nameList: [String] = ["津田梅子","ジョージワシントン","ガリレオガリレイ","ジョン万次郎","板垣退助"]
+    let nameList: [String] = ["津田梅子","ジョージワシントン","ガリレオガリレイ","板垣退助","ジョン万次郎"]
     //
     var likedName: [String] = []
     
@@ -167,6 +167,9 @@ class ViewController: UIViewController {
                         
                     })
                 }
+                
+                
+                
             }
             
 //            if card.center.x < 50 {
@@ -208,6 +211,39 @@ class ViewController: UIViewController {
         }
         
     }
+    
+    
+    @IBAction func dislikebuttontapped(_ sender: Any) {
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            self.resetCard()
+            
+            self.personList[self.selectedCardCount].center = CGPoint(x: self.personList[self.selectedCardCount].center.x - 500,
+            y:self.personList[self.selectedCardCount].center.y)
+        })
+        selectedCardCount += 1
+        
+        if selectedCardCount >= personList.count {
+            performSegue(withIdentifier: "ToLikedList", sender: self)
+        }
+    }
+    
+    @IBAction func likebuttontapped(_ sender: Any) {
+        print(selectedCardCount)
+        UIView.animate(withDuration: 0.5, animations: {
+        self.resetCard()
+        
+        self.personList[self.selectedCardCount].center = CGPoint(x: self.personList[self.selectedCardCount].center.x + 500, y:self.personList[self.selectedCardCount].center.y)
+    })
+        
+    likedName.append(nameList[selectedCardCount])
+        selectedCardCount += 1
+        
+        if selectedCardCount >= personList.count {
+            performSegue(withIdentifier: "ToLikedList", sender: self)
+        }
+    }
+    
     
 }
 
